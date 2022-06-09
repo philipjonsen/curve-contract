@@ -1,19 +1,19 @@
 {
-    "coins": [
-        {
-            "decimals": 18,
-            "tethered": false,
-            "wrapped": false
-        },
-        {
-            "decimals": 6,
-            "tethered": false,
-            "wrapped": false
-        },
-        {
-            "decimals": 6,
-            "tethered": true,
-            "wrapped": false
-        }
-    ]
+  "coins": [
+    {
+      "decimals": 18,
+      "tethered": false,
+      "wrapped": false
+    },
+    {
+      "decimals": 6,
+      "tethered": false,
+      "wrapped": false
+    },
+    {
+      "decimals": 6,
+      "tethered": true,
+      "wrapped": false
+    }
+  ]
 }

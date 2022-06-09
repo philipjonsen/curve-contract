@@ -48,7 +48,7 @@ def test_calc_withdraw_one_coin(chain, alice, swap, pool_token, idx):
 
 @pytest.mark.parametrize("is_deposit", [True, False])
 def test_calc_token_amount(chain, swap, wrapped_decimals, is_deposit):
-    amounts = [10 ** i for i in wrapped_decimals]
+    amounts = [10**i for i in wrapped_decimals]
     expected = swap.calc_token_amount(amounts, is_deposit)
 
     chain.sleep(86400)

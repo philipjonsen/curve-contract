@@ -1,7 +1,7 @@
 import brownie
 import pytest
 
-MAX_FEE = 5 * 10 ** 9
+MAX_FEE = 5 * 10**9
 ETH_ADDRESS = "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE"
 
 

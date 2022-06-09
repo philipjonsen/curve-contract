@@ -24,10 +24,10 @@ def test_transferFrom_without_approval(token, minter, alice, bob):
     balance = token.balanceOf(alice)
 
     # minter should be able to call transferFrom without prior approval
-    token.transferFrom(alice, bob, 10 ** 19, {"from": minter})
+    token.transferFrom(alice, bob, 10**19, {"from": minter})
 
-    assert token.balanceOf(alice) == balance - 10 ** 19
-    assert token.balanceOf(bob) == 10 ** 19
+    assert token.balanceOf(alice) == balance - 10**19
+    assert token.balanceOf(bob) == 10**19
 
 
 def test_mint_affects_balance(token, minter, bob):
@@ -45,7 +45,7 @@ def test_mint_affects_totalSupply(token, minter, bob):
 
 
 def test_mint_overflow(token, minter, bob):
-    amount = 2 ** 256 - token.totalSupply()
+    amount = 2**256 - token.totalSupply()
 
     with brownie.reverts():
         token.mint(bob, amount, {"from": minter})
@@ -59,7 +59,7 @@ def test_mint_not_minter(token, alice):
 @pytest.mark.target_token(max=2)
 def test_mint_zero_address(token, minter):
     with brownie.reverts():
-        token.mint(ZERO_ADDRESS, 10 ** 18, {"from": minter})
+        token.mint(ZERO_ADDRESS, 10**18, {"from": minter})
 
 
 def test_burn_affects_balance(token, minter, alice):
@@ -91,10 +91,10 @@ def test_burn_not_minter(token, alice):
 
 @pytest.mark.target_token(max=2)
 def test_burn_zero_address(token, alice, minter):
-    token.transfer(ZERO_ADDRESS, 10 ** 18, {"from": alice})
+    token.transfer(ZERO_ADDRESS, 10**18, {"from": alice})
 
     with brownie.reverts():
-        token.burnFrom(ZERO_ADDRESS, 10 ** 18, {"from": minter})
+        token.burnFrom(ZERO_ADDRESS, 10**18, {"from": minter})
 
 
 @pytest.mark.target_token(min=2)

@@ -36,7 +36,7 @@ def exchange(_coin: address, _swap: address):
 
     contract = compile_source(code, vyper_version="0.2.4").Vyper.deploy({"from": alice})
     coin = wrapped_coins[1]
-    coin._mint_for_testing(contract, 2 * 10 ** 18, {"from": alice})
+    coin._mint_for_testing(contract, 2 * 10**18, {"from": alice})
 
     with brownie.reverts():
         contract.exchange(coin, swap, {"from": alice})

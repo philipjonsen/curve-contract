@@ -38,12 +38,12 @@ def test_simulated_exchange(
         Array of integers, used to choose the size of each swap
     """
 
-    set_fees(10 ** 7, 0)
+    set_fees(10**7, 0)
 
     # add initial pool liquidity
     initial_liquidity = []
     for underlying, decimals in zip(underlying_coins, wrapped_decimals):
-        amount = 1000 * 10 ** decimals
+        amount = 1000 * 10**decimals
         underlying._mint_for_testing(alice, amount, {"from": alice})
         underlying.approve(swap, amount, {"from": alice})
         initial_liquidity.append(amount // 10)
@@ -54,19 +54,19 @@ def test_simulated_exchange(
     balances = [swap.balances(i) for i in range(n_coins)]
     rates = []
     for decimals in wrapped_decimals:
-        rate = 10 ** 18
+        rate = 10**18
         precision = 10 ** (18 - decimals)
         rates.append(rate * precision)
     curve_model = Curve(2 * 360, balances, n_coins, rates)
 
     for coin, decimals in zip(underlying_coins, wrapped_decimals):
         # Fund bob with $100 of each coin and approve swap contract
-        amount = 100 * 10 ** decimals
+        amount = 100 * 10**decimals
         coin._mint_for_testing(bob, amount, {"from": alice})
         coin.approve(swap, amount, {"from": bob})
 
     # Start trading!
-    rate_mul = [10 ** i for i in wrapped_decimals]
+    rate_mul = [10**i for i in wrapped_decimals]
     while st_coin:
         # Increase aToken balances by 1% to simulate accrued interest
         for i, coin in enumerate(wrapped_coins):

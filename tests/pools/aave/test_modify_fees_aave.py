@@ -2,9 +2,9 @@ import brownie
 import pytest
 
 COMMIT_WAIT = 86400 * 3
-MAX_ADMIN_FEE = 10 * 10 ** 9
-MAX_FEE = 5 * 10 ** 9
-MAX_OFFPEG = MAX_FEE * (10 ** 10)
+MAX_ADMIN_FEE = 10 * 10**9
+MAX_FEE = 5 * 10**9
+MAX_OFFPEG = MAX_FEE * (10**10)
 
 
 @pytest.mark.parametrize(
@@ -31,19 +31,19 @@ def test_commit_already_active(alice, swap):
         swap.commit_new_fee(23, 42, 31337, {"from": alice})
 
 
-@pytest.mark.parametrize("fee", [MAX_ADMIN_FEE + 1, 2 ** 127, 2 ** 256 - 1])
+@pytest.mark.parametrize("fee", [MAX_ADMIN_FEE + 1, 2**127, 2**256 - 1])
 def test_commit_admin_fee_too_high(alice, swap, fee):
     with brownie.reverts("dev: admin fee exceeds maximum"):
         swap.commit_new_fee(0, fee, 0, {"from": alice})
 
 
-@pytest.mark.parametrize("fee", [MAX_FEE + 1, 2 ** 127, 2 ** 256 - 1])
+@pytest.mark.parametrize("fee", [MAX_FEE + 1, 2**127, 2**256 - 1])
 def test_commit_fee_too_high(alice, swap, fee):
     with brownie.reverts("dev: fee exceeds maximum"):
         swap.commit_new_fee(fee, 0, 0, {"from": alice})
 
 
-@pytest.mark.parametrize("offpeg", [MAX_OFFPEG, 2 ** 127])
+@pytest.mark.parametrize("offpeg", [MAX_OFFPEG, 2**127])
 @pytest.mark.parametrize("fee", [1, 2, 100])
 def test_commit_offpeg_too_high(alice, swap, fee, offpeg):
     with brownie.reverts("dev: offpeg multiplier exceeds maximum"):
@@ -52,7 +52,7 @@ def test_commit_offpeg_too_high(alice, swap, fee, offpeg):
 
 def test_commit_offpeg_too_high_max_uint256(alice, swap):
     with brownie.reverts("dev: offpeg multiplier exceeds maximum"):
-        swap.commit_new_fee(1, 0, 2 ** 256 - 1, {"from": alice})
+        swap.commit_new_fee(1, 0, 2**256 - 1, {"from": alice})
 
 
 @pytest.mark.parametrize(

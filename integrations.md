@@ -12,12 +12,14 @@ Next is the breif description of methods you need to fascilitate exchanges.
 ```python
 coins: public(address[N_COINS])
 ```
+
 - By calling `contract.coins(i)`, you get contract address of i-th c-token
   (cDAI, cUSDC, ...); `i = 0, 1, ...`.
 
 ```python
 underlying_coins: public(address[N_COINS])
 ```
+
 - By calling `contract.underlying_coins(i)`, you get contract address of i-th token
   (DAI, USDC, ...).
 

@@ -16,9 +16,9 @@ def test_amount_received(chain, bob, swap, underlying_coins, wrapped_coins, wrap
 
     initial = wrapped.balanceOf(swap)
 
-    swap.remove_liquidity_one_coin(10 ** 18, idx, 0, True, {"from": bob})
+    swap.remove_liquidity_one_coin(10**18, idx, 0, True, {"from": bob})
 
-    assert 0.9999 < underlying.balanceOf(bob) / 10 ** decimals < 1
+    assert 0.9999 < underlying.balanceOf(bob) / 10**decimals < 1
     assert wrapped.balanceOf(swap) + underlying.balanceOf(bob) == initial
 
 
@@ -29,7 +29,7 @@ def test_lp_token_balance(bob, swap, pool_token, idx, divisor, n_coins, base_amo
 
     swap.remove_liquidity_one_coin(amount, idx, 0, True, {"from": bob})
 
-    assert pool_token.balanceOf(bob) == n_coins * 10 ** 18 * base_amount - amount
+    assert pool_token.balanceOf(bob) == n_coins * 10**18 * base_amount - amount
 
 
 @pytest.mark.itercoins("idx")

@@ -21,7 +21,7 @@ def test_remove_liquidity_imbalance(
     # remove liquidity from base pool to leave it imbalanced
     # st_base maxes at 49% because 50% of the total supply is with charlie
     amounts = [int(base_swap.balances(i) * st_base[i]) for i in range(3)]
-    base_swap.remove_liquidity_imbalance(amounts, 2 ** 256 - 1, {"from": charlie})
+    base_swap.remove_liquidity_imbalance(amounts, 2**256 - 1, {"from": charlie})
 
     # attempt an imbalanced withdrawal from the base pool via the metapool zap
     amounts = [int(initial_amounts_underlying[i] * st_zap[i]) for i in range(4)]

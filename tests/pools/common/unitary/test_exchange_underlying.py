@@ -24,7 +24,7 @@ def test_amounts(
     is_metapool,
 ):
     if fee or admin_fee:
-        set_fees(10 ** 10 * fee, 10 ** 10 * admin_fee)
+        set_fees(10**10 * fee, 10**10 * admin_fee)
         if is_metapool and min(sending, receiving) > 0:
             fee = 0
 
@@ -36,7 +36,7 @@ def test_amounts(
 
     received = underlying_coins[receiving].balanceOf(bob)
     prec = -min(underlying_decimals[receiving], 4)
-    assert 1 - 10 ** prec - fee <= received / 10 ** underlying_decimals[receiving] < 1 - fee
+    assert 1 - 10**prec - fee <= received / 10 ** underlying_decimals[receiving] < 1 - fee
 
 
 @pytest.mark.itercoins("sending", "receiving", underlying=True)
@@ -58,7 +58,7 @@ def test_fees(
     is_metapool,
 ):
     if fee or admin_fee:
-        set_fees(10 ** 10 * fee, 10 ** 10 * admin_fee)
+        set_fees(10**10 * fee, 10**10 * admin_fee)
 
     amount = (base_amount // 100) * 10 ** underlying_decimals[sending]
     underlying_coins[sending]._mint_for_testing(bob, amount, {"from": bob})

@@ -20,7 +20,7 @@ def test_remove_liquidity(
     n_coins,
 ):
     swap.remove_liquidity(
-        n_coins * 10 ** 18 * base_amount,
+        n_coins * 10**18 * base_amount,
         [i * min_amount for i in initial_amounts],
         True,
         {"from": bob},
@@ -54,8 +54,8 @@ def test_remove_partial(
         assert bob_balance > 0
         assert bob_balance + pool_balance == amount
 
-    assert pool_token.balanceOf(bob) == n_coins * 10 ** 18 * base_amount - withdraw_amount
-    assert pool_token.totalSupply() == n_coins * 10 ** 18 * base_amount - withdraw_amount
+    assert pool_token.balanceOf(bob) == n_coins * 10**18 * base_amount - withdraw_amount
+    assert pool_token.totalSupply() == n_coins * 10**18 * base_amount - withdraw_amount
 
 
 @pytest.mark.itercoins("idx")
@@ -64,11 +64,11 @@ def test_below_min_amount(bob, swap, initial_amounts, base_amount, n_coins, idx)
     min_amount[idx] += 1
 
     with brownie.reverts():
-        swap.remove_liquidity(n_coins * 10 ** 18 * base_amount, min_amount, True, {"from": bob})
+        swap.remove_liquidity(n_coins * 10**18 * base_amount, min_amount, True, {"from": bob})
 
 
 def test_amount_exceeds_balance(bob, swap, n_coins, base_amount):
     with brownie.reverts():
         swap.remove_liquidity(
-            n_coins * 10 ** 18 * base_amount + 1, [0] * n_coins, True, {"from": bob}
+            n_coins * 10**18 * base_amount + 1, [0] * n_coins, True, {"from": bob}
         )

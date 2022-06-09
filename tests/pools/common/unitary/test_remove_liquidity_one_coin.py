@@ -24,14 +24,14 @@ def test_amount_received(chain, alice, swap, wrapped_coins, wrapped_decimals, id
     else:
         rate_mod = 1.00001
 
-    swap.remove_liquidity_one_coin(10 ** 18, idx, 0, {"from": alice})
+    swap.remove_liquidity_one_coin(10**18, idx, 0, {"from": alice})
 
     balance = wrapped.balanceOf(alice) if wrapped != ETH_ADDRESS else alice.balance()
 
     if rate_mod < 1:
-        assert 10 ** decimals <= balance < 10 ** decimals / rate_mod
+        assert 10**decimals <= balance < 10**decimals / rate_mod
     else:
-        assert 10 ** decimals // rate_mod <= balance <= 10 ** decimals
+        assert 10**decimals // rate_mod <= balance <= 10**decimals
 
 
 @pytest.mark.itercoins("idx")
@@ -41,7 +41,7 @@ def test_lp_token_balance(alice, swap, pool_token, idx, divisor, n_coins, base_a
 
     swap.remove_liquidity_one_coin(amount, idx, 0, {"from": alice})
 
-    assert pool_token.balanceOf(alice) == n_coins * 10 ** 18 * base_amount - amount
+    assert pool_token.balanceOf(alice) == n_coins * 10**18 * base_amount - amount
 
 
 @pytest.mark.itercoins("idx")
@@ -66,7 +66,7 @@ def test_expected_vs_actual(
     else:
         assert wrapped_coins[idx].balanceOf(alice) == expected
 
-    assert pool_token.balanceOf(alice) == n_coins * 10 ** 18 * base_amount - amount
+    assert pool_token.balanceOf(alice) == n_coins * 10**18 * base_amount - amount
 
 
 @pytest.mark.itercoins("idx")
@@ -96,13 +96,13 @@ def test_above_n_coins(alice, swap, wrapped_coins, n_coins):
 
 @pytest.mark.itercoins("idx")
 def test_event(alice, bob, swap, pool_token, idx, wrapped_coins):
-    pool_token.transfer(bob, 10 ** 18, {"from": alice})
+    pool_token.transfer(bob, 10**18, {"from": alice})
 
-    tx = swap.remove_liquidity_one_coin(10 ** 18, idx, 0, {"from": bob})
+    tx = swap.remove_liquidity_one_coin(10**18, idx, 0, {"from": bob})
 
     event = tx.events["RemoveLiquidityOne"]
     assert event["provider"] == bob
-    assert event["token_amount"] == 10 ** 18
+    assert event["token_amount"] == 10**18
 
     coin = wrapped_coins[idx]
     if coin == ETH_ADDRESS:

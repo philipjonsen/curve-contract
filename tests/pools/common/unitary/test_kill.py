@@ -40,7 +40,7 @@ def test_remove_liquidity(
     add_initial_liquidity, alice, swap, wrapped_coins, initial_amounts, n_coins, base_amount
 ):
     swap.kill_me({"from": alice})
-    swap.remove_liquidity(n_coins * 10 ** 18 * base_amount, [0] * n_coins, {"from": alice})
+    swap.remove_liquidity(n_coins * 10**18 * base_amount, [0] * n_coins, {"from": alice})
 
 
 def test_remove_liquidity_imbalance(alice, swap, initial_amounts, n_coins):

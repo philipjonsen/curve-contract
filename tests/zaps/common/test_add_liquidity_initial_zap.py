@@ -9,7 +9,7 @@ def test_lp_token_balances(
 ):
     zap.add_liquidity(initial_amounts_underlying, 0, {"from": bob})
 
-    assert 0.9999 < pool_token.balanceOf(bob) / (n_coins * 10 ** 18 * base_amount) <= 1
+    assert 0.9999 < pool_token.balanceOf(bob) / (n_coins * 10**18 * base_amount) <= 1
     assert pool_token.totalSupply() == pool_token.balanceOf(bob)
 
 
@@ -39,7 +39,7 @@ def test_wrapped_balances(
 @pytest.mark.skip_pool("template-meta")
 @pytest.mark.itercoins("idx")
 def test_initial_liquidity_missing_coin(alice, zap, pool_token, idx, underlying_decimals):
-    amounts = [10 ** i for i in underlying_decimals]
+    amounts = [10**i for i in underlying_decimals]
     amounts[idx] = 0
 
     with brownie.reverts():
