@@ -18,12 +18,12 @@ def initial_setup(
     underlying_coins,
     underlying_decimals,
 ):
-    set_fees(10 ** 7, 0)
+    set_fees(10**7, 0)
 
     # add initial pool liquidity
     initial_liquidity = []
     for coin, decimals in zip(wrapped_coins, wrapped_decimals):
-        amount = 1000 * 10 ** decimals
+        amount = 1000 * 10**decimals
         initial_liquidity.append(amount // 10)
         coin._mint_for_testing(alice, amount, {"from": alice})
         coin.approve(swap, amount // 10, {"from": alice})
@@ -32,7 +32,7 @@ def initial_setup(
 
     for coin, decimals in zip(underlying_coins, underlying_decimals):
         # Fund bob with $100 of each coin and approve swap contract
-        amount = 100 * 10 ** decimals
+        amount = 100 * 10**decimals
         coin._mint_for_testing(bob, amount, {"from": alice})
         coin.approve(swap, amount, {"from": bob})
 
@@ -74,14 +74,14 @@ def test_simulated_exchange(
         if hasattr(coin, "get_rate"):
             rate = coin.get_rate()
         else:
-            rate = 10 ** 18
+            rate = 10**18
 
         precision = 10 ** (18 - decimals)
         rates.append(rate * precision)
     curve_model = Curve(2 * 360, balances, n_coins, rates)
 
     # Start trading!
-    rate_mul = [10 ** i for i in underlying_decimals]
+    rate_mul = [10**i for i in underlying_decimals]
     while st_coin:
         # Tune exchange rates
         for i, (coin, decimals) in enumerate(zip(wrapped_coins, underlying_decimals)):

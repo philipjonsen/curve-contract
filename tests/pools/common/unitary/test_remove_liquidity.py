@@ -10,7 +10,7 @@ def test_remove_liquidity(
     alice, swap, wrapped_coins, pool_token, min_amount, initial_amounts, base_amount, n_coins
 ):
     swap.remove_liquidity(
-        n_coins * 10 ** 18 * base_amount, [i * min_amount for i in initial_amounts], {"from": alice}
+        n_coins * 10**18 * base_amount, [i * min_amount for i in initial_amounts], {"from": alice}
     )
 
     for coin, amount in zip(wrapped_coins, initial_amounts):
@@ -40,8 +40,8 @@ def test_remove_partial(
             alice_balance = coin.balanceOf(alice)
         assert alice_balance + pool_balance == amount
 
-    assert pool_token.balanceOf(alice) == n_coins * 10 ** 18 * base_amount - withdraw_amount
-    assert pool_token.totalSupply() == n_coins * 10 ** 18 * base_amount - withdraw_amount
+    assert pool_token.balanceOf(alice) == n_coins * 10**18 * base_amount - withdraw_amount
+    assert pool_token.totalSupply() == n_coins * 10**18 * base_amount - withdraw_amount
 
 
 @pytest.mark.itercoins("idx")
@@ -50,17 +50,17 @@ def test_below_min_amount(alice, swap, initial_amounts, base_amount, n_coins, id
     min_amount[idx] += 1
 
     with brownie.reverts():
-        swap.remove_liquidity(n_coins * 10 ** 18 * base_amount, min_amount, {"from": alice})
+        swap.remove_liquidity(n_coins * 10**18 * base_amount, min_amount, {"from": alice})
 
 
 def test_amount_exceeds_balance(alice, swap, n_coins, base_amount):
     with brownie.reverts():
-        swap.remove_liquidity(n_coins * 10 ** 18 * base_amount + 1, [0] * n_coins, {"from": alice})
+        swap.remove_liquidity(n_coins * 10**18 * base_amount + 1, [0] * n_coins, {"from": alice})
 
 
 def test_event(alice, bob, swap, wrapped_coins, pool_token, n_coins):
-    pool_token.transfer(bob, 10 ** 18, {"from": alice})
-    tx = swap.remove_liquidity(10 ** 18, [0] * n_coins, {"from": bob})
+    pool_token.transfer(bob, 10**18, {"from": alice})
+    tx = swap.remove_liquidity(10**18, [0] * n_coins, {"from": bob})
 
     event = tx.events["RemoveLiquidity"]
     assert event["provider"] == bob

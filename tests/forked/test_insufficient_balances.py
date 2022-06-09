@@ -68,7 +68,7 @@ def test_add_liquidity_insufficient_balance(
 
     # remove liquidity balanced
     with brownie.reverts():
-        swap.remove_liquidity(10 ** 18, [0] * n_coins, {"from": charlie})
+        swap.remove_liquidity(10**18, [0] * n_coins, {"from": charlie})
 
     # remove liquidity imbalanced
     for idx in range(n_coins):
@@ -80,7 +80,7 @@ def test_add_liquidity_insufficient_balance(
         )
         with brownie.reverts():
             swap.remove_liquidity_imbalance(
-                amounts, 2 ** 256 - 1, {"from": charlie, "value": value}
+                amounts, 2**256 - 1, {"from": charlie, "value": value}
             )
 
     if hasattr(swap, "remove_liquidity_one_coin"):

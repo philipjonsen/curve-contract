@@ -24,7 +24,7 @@ def test_exchange(
     get_admin_balances,
 ):
     if fee or admin_fee:
-        set_fees(10 ** 10 * fee, 10 ** 10 * admin_fee)
+        set_fees(10**10 * fee, 10**10 * admin_fee)
 
     amount = 10 ** wrapped_decimals[sending]
     if wrapped_coins[sending] == ETH_ADDRESS:
@@ -36,12 +36,12 @@ def test_exchange(
     swap.exchange(sending, receiving, amount, 0, {"from": bob, "value": value})
 
     if wrapped_coins[sending] == ETH_ADDRESS:
-        assert bob.balance() + amount == 10 ** 18 * base_amount
+        assert bob.balance() + amount == 10**18 * base_amount
     else:
         assert wrapped_coins[sending].balanceOf(bob) == 0
 
     if wrapped_coins[receiving] == ETH_ADDRESS:
-        received = bob.balance() - 10 ** 18 * base_amount
+        received = bob.balance() - 10**18 * base_amount
     else:
         received = wrapped_coins[receiving].balanceOf(bob)
     assert (
@@ -72,7 +72,7 @@ def test_min_dy(bob, swap, wrapped_coins, sending, receiving, wrapped_decimals, 
     swap.exchange(sending, receiving, amount, min_dy - 1, {"from": bob, "value": value})
 
     if wrapped_coins[receiving] == ETH_ADDRESS:
-        received = bob.balance() - 10 ** 18 * base_amount
+        received = bob.balance() - 10**18 * base_amount
     else:
         received = wrapped_coins[receiving].balanceOf(bob)
 

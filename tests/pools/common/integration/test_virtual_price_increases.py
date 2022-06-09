@@ -103,13 +103,13 @@ class StateMachine:
         idx = self._min_max()[1]
         amounts = [0] * self.n_coins
         amounts[idx] = 10 ** self.decimals[idx] * st_pct
-        self.swap.remove_liquidity_imbalance(amounts, 2 ** 256 - 1, {"from": self.alice})
+        self.swap.remove_liquidity_imbalance(amounts, 2**256 - 1, {"from": self.alice})
 
     def rule_remove(self, st_pct):
         """
         Remove liquidity from the pool.
         """
-        amount = int(10 ** 18 * st_pct)
+        amount = int(10**18 * st_pct)
         self.swap.remove_liquidity(amount, [0] * self.n_coins, {"from": self.alice})
 
     def invariant_check_virtual_price(self):
@@ -139,10 +139,10 @@ def test_number_always_go_up(
     base_amount,
     set_fees,
 ):
-    set_fees(10 ** 7, 0)
+    set_fees(10**7, 0)
 
     for underlying, wrapped in zip(underlying_coins, wrapped_coins):
-        amount = 10 ** 18 * base_amount
+        amount = 10**18 * base_amount
         if underlying == ETH_ADDRESS:
             bob.transfer(alice, amount)
         else:

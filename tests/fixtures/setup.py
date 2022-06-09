@@ -34,7 +34,7 @@ def _approve(owner, spender, *coins):
     for coin in set(x for i in coins for x in i):
         if coin == ETH_ADDRESS:
             continue
-        coin.approve(spender, 2 ** 256 - 1, {"from": owner})
+        coin.approve(spender, 2**256 - 1, {"from": owner})
 
 
 # pool setup fixtures
@@ -86,11 +86,11 @@ def approve_zap(alice, bob, zap, pool_token, underlying_coins):
     for underlying in underlying_coins:
         if underlying == "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE":
             continue
-        underlying.approve(zap, 2 ** 256 - 1, {"from": alice})
-        underlying.approve(zap, 2 ** 256 - 1, {"from": bob})
+        underlying.approve(zap, 2**256 - 1, {"from": alice})
+        underlying.approve(zap, 2**256 - 1, {"from": bob})
 
-    pool_token.approve(zap, 2 ** 256 - 1, {"from": alice})
-    pool_token.approve(zap, 2 ** 256 - 1, {"from": bob})
+    pool_token.approve(zap, 2**256 - 1, {"from": alice})
+    pool_token.approve(zap, 2**256 - 1, {"from": bob})
 
 
 @pytest.fixture(scope="module")
@@ -102,7 +102,7 @@ def _add_base_pool_liquidity(
         return
 
     decimals = [i.get("decimals", i.get("wrapped_decimals")) for i in base_pool_data["coins"]]
-    initial_amounts = [10 ** i * base_amount * 2 for i in decimals]
+    initial_amounts = [10**i * base_amount * 2 for i in decimals]
     _mint(charlie, _base_coins, initial_amounts, [], [], is_forked)
     _approve(charlie, base_swap, _base_coins)
     _add_liquidity(charlie, base_swap, _base_coins, initial_amounts)

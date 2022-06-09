@@ -2,8 +2,8 @@ import brownie
 import pytest
 
 COMMIT_WAIT = 86400 * 3
-MAX_ADMIN_FEE = 5 * 10 ** 9
-MAX_FEE = 5 * 10 ** 9
+MAX_ADMIN_FEE = 5 * 10**9
+MAX_FEE = 5 * 10**9
 
 pytestmark = [
     pytest.mark.skip_pool("busd", "compound", "susd", "usdt", "y"),
@@ -33,13 +33,13 @@ def test_commit_already_active(alice, swap):
         swap.commit_new_fee(23, 42, {"from": alice})
 
 
-@pytest.mark.parametrize("fee", [2 ** 127, 2 ** 256 - 1])
+@pytest.mark.parametrize("fee", [2**127, 2**256 - 1])
 def test_commit_admin_fee_too_high(alice, swap, fee):
     with brownie.reverts():
         swap.commit_new_fee(0, fee, {"from": alice})
 
 
-@pytest.mark.parametrize("fee", [MAX_FEE + 1, 2 ** 127, 2 ** 256 - 1])
+@pytest.mark.parametrize("fee", [MAX_FEE + 1, 2**127, 2**256 - 1])
 def test_commit_fee_too_high(alice, swap, fee):
     with brownie.reverts():
         swap.commit_new_fee(fee, 0, {"from": alice})

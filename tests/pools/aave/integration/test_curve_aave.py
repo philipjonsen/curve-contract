@@ -17,13 +17,13 @@ pytestmark = pytest.mark.skip_pool_type("meta")
 def test_curve_in_contract(
     alice, swap, wrapped_coins, st_seed_amount, n_coins, approx, st_pct, wrapped_decimals
 ):
-    st_seed_amount = int(10 ** st_seed_amount)
+    st_seed_amount = int(10**st_seed_amount)
 
     # add initial pool liquidity
     # we add at an imbalance of +10% for each subsequent coin
     initial_liquidity = []
     for coin, decimals in zip(wrapped_coins, wrapped_decimals):
-        amount = st_seed_amount * 10 ** decimals + 1
+        amount = st_seed_amount * 10**decimals + 1
         amount = int(amount * (1 + 0.1 * len(initial_liquidity)))
         coin._mint_for_testing(alice, amount, {"from": alice})
 
@@ -37,13 +37,13 @@ def test_curve_in_contract(
     balances = [swap.balances(i) for i in range(n_coins)]
     rates = []
     for decimals in wrapped_decimals:
-        rate = 10 ** 18
+        rate = 10**18
         precision = 10 ** (18 - decimals)
         rates.append(rate * precision)
     curve_model = Curve(2 * 360, balances, n_coins, rates)
 
     # execute a series of swaps and compare the python model to the contract results
-    rates = [10 ** 18 for i in range(n_coins)]
+    rates = [10**18 for i in range(n_coins)]
     exchange_pairs = deque(permutations(range(n_coins), 2))
 
     while st_pct:

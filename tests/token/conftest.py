@@ -41,7 +41,7 @@ def token(request, alice, minter):
     args = ["Test Token", "TST", 18, 0][: len(deployer.deploy.abi["inputs"])]
     contract = deployer.deploy(*args, {"from": alice})
     contract.set_minter(minter, {"from": alice})
-    contract.mint(alice, 100000 * 10 ** 18, {"from": minter})
+    contract.mint(alice, 100000 * 10**18, {"from": minter})
 
     yield contract
 

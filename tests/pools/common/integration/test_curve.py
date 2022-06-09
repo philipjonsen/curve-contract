@@ -25,13 +25,13 @@ def test_curve_in_contract(
     st_seed_amount,
     st_pct,
 ):
-    st_seed_amount = int(10 ** st_seed_amount)
+    st_seed_amount = int(10**st_seed_amount)
 
     # add initial pool liquidity
     # we add at an imbalance of +10% for each subsequent coin
     initial_liquidity = []
     for coin, decimals in zip(wrapped_coins, wrapped_decimals):
-        amount = st_seed_amount * 10 ** decimals + 1
+        amount = st_seed_amount * 10**decimals + 1
         coin._mint_for_testing(alice, amount, {"from": alice})
 
         if hasattr(coin, "set_exchange_rate"):
@@ -51,7 +51,7 @@ def test_curve_in_contract(
         if hasattr(coin, "get_rate"):
             rate = coin.get_rate()
         else:
-            rate = 10 ** 18
+            rate = 10**18
 
         precision = 10 ** (18 - decimals)
         rates.append(rate * precision)
@@ -59,7 +59,7 @@ def test_curve_in_contract(
 
     # execute a series of swaps and compare the python model to the contract results
     rates = [
-        wrapped_coins[i].get_rate() if hasattr(wrapped_coins[i], "get_rate") else 10 ** 18
+        wrapped_coins[i].get_rate() if hasattr(wrapped_coins[i], "get_rate") else 10**18
         for i in range(n_coins)
     ]
     exchange_pairs = deque(permutations(range(n_coins), 2))
@@ -69,7 +69,7 @@ def test_curve_in_contract(
         send, recv = exchange_pairs[0]
         dx = int(2 * st_seed_amount * 10 ** underlying_decimals[send] * st_pct.pop())
 
-        dx_c = dx * 10 ** 18 // rates[send]
+        dx_c = dx * 10**18 // rates[send]
 
         dy_1_c = swap.get_dy(send, recv, dx_c)
 
@@ -78,7 +78,7 @@ def test_curve_in_contract(
         else:
             dy_1_u = dy_1_c
 
-        dy_1 = dy_1_c * rates[recv] // 10 ** 18
+        dy_1 = dy_1_c * rates[recv] // 10**18
 
         dy_2 = curve_model.dy(send, recv, dx * (10 ** (18 - underlying_decimals[send])))
         dy_2 //= 10 ** (18 - underlying_decimals[recv])

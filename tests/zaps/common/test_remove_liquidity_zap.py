@@ -23,7 +23,14 @@ def test_lp_token_balances(bob, zap, underlying_coins, pool_token, divisor):
 
 @pytest.mark.parametrize("divisor", [1, 23, 1337])
 def test_wrapped_balances(
-    bob, swap, zap, underlying_coins, wrapped_coins, pool_token, initial_amounts, divisor,
+    bob,
+    swap,
+    zap,
+    underlying_coins,
+    wrapped_coins,
+    pool_token,
+    initial_amounts,
+    divisor,
 ):
     initial_balance = pool_token.balanceOf(bob)
     withdraw_amount = initial_balance // divisor
@@ -70,13 +77,13 @@ def test_below_min_amount(alice, zap, initial_amounts_underlying, base_amount, i
     min_amount = initial_amounts_underlying.copy()
     min_amount[idx] += 1
 
-    amount = n_coins * 10 ** 18 * base_amount
+    amount = n_coins * 10**18 * base_amount
     with brownie.reverts():
         zap.remove_liquidity(amount, min_amount, {"from": alice})
 
 
 def test_amount_exceeds_balance(alice, zap, underlying_coins, base_amount):
     n_coins = len(underlying_coins)
-    amount = n_coins * 10 ** 18 * base_amount + 1
+    amount = n_coins * 10**18 * base_amount + 1
     with brownie.reverts():
         zap.remove_liquidity(amount, [0] * n_coins, {"from": alice})
